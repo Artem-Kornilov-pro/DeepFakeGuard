@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY pyproject.toml .
 RUN pip install -e ".[dev]"
 
-# Copy source code
+# Copy source code, Alembic config and migrations
 COPY src/ src/
+COPY alembic.ini .
+COPY alembic/ alembic/
 
 CMD ["celery", "-A", "src.tasks.celery_app", "worker", "--loglevel=info"]
