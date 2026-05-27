@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from collections.abc import AsyncGenerator
+from collections.abc import AsyncGenerator, Generator
+
 
 import pytest
 import pytest_asyncio
@@ -57,7 +58,7 @@ async def test_user(async_session: AsyncSession) -> User:
 
 
 @pytest_asyncio.fixture(autouse=True)
-def override_get_db(async_session: AsyncSession) -> None:
+def override_get_db(async_session: AsyncSession) -> Generator[None, None, None]:
     """Override get_db dependency with test session."""
 
     async def _get_db_override() -> AsyncGenerator[AsyncSession, None]:
