@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import uuid
+from collections.abc import AsyncGenerator
 
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
@@ -12,7 +13,7 @@ from src.api.models import Base, FederatedClient, FederatedRound, InferenceTask,
 
 
 @pytest.fixture
-async def async_session() -> AsyncSession:
+async def async_session() -> AsyncGenerator[AsyncSession, None]:
     """Create an async in-memory SQLite session for testing."""
     engine = create_async_engine("sqlite+aiosqlite://", echo=False)
 
